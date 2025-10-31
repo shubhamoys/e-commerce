@@ -1,5 +1,5 @@
+import { Product } from '../../products/entities/product.entity';
 import { DataSource } from 'typeorm';
-import { Product } from '../products/entities/product.entity';
 
 const AppDataSource = new DataSource({
   type: 'postgres',
@@ -97,7 +97,9 @@ async function seed() {
     // Check if products already exist
     const existingCount = await productRepository.count();
     if (existingCount > 0) {
-      console.log(`⚠️  Database already has ${existingCount} products. Skipping seed.`);
+      console.log(
+        `⚠️  Database already has ${existingCount} products. Skipping seed.`,
+      );
       await AppDataSource.destroy();
       return;
     }

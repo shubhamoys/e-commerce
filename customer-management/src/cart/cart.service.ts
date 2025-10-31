@@ -1,19 +1,30 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { ConfigService } from '@nestjs/config';
 import { Cart } from './entities/cart.entity';
 import { CartItem } from './entities/cart-item.entity';
 import { AddToCartDto } from './dto/add-to-cart.dto';
 import { UpdateCartItemDto } from './dto/update-cart-item.dto';
+import { ProductServiceClient } from '../common/clients/product-service.client';
 
 @Injectable()
 export class CartService {
+  private readonly productServiceClient: ProductServiceClient;
+
   constructor(
     @InjectRepository(Cart)
     private readonly cartRepository: Repository<Cart>,
     @InjectRepository(CartItem)
     private readonly cartItemRepository: Repository<CartItem>,
-  ) {}
+    private readonly configService: ConfigService,
+  ) {
+    this.productServiceClient = new ProductServiceClient(this.configService);
+  }
 
   async getCart(customerId: string) {
     let cart = await this.cartRepository.findOne({
@@ -41,7 +52,21 @@ export class CartService {
   }
 
   async addToCart(customerId: string, addToCartDto: AddToCartDto) {
-    const { productId, productName, productPrice, quantity } = addToCartDto;
+    const { productId, quantity } = addToCartDto;
+
+    // Fetch product details from Product Service
+    let productData;
+    try {
+      productData = await this.productServiceClient.getProduct(productId);
+    } catch (error: any) {
+      throw new BadRequestException(
+        error.message || 'Failed to validate product',
+      );
+    }
+
+    const product = productData.data.product;
+    const productName = product.name;
+    const productPrice = product.price;
 
     // Get or create cart
     let cart = await this.cartRepository.findOne({
@@ -60,8 +85,10 @@ export class CartService {
     );
 
     if (existingItem) {
-      // Update quantity
+      // Update quantity and refresh price (in case product price changed)
       existingItem.quantity += quantity;
+      existingItem.productPrice = productPrice;
+      existingItem.productName = productName;
       await this.cartItemRepository.save(existingItem);
     } else {
       // Add new item

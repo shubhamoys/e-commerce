@@ -23,8 +23,13 @@ export class OrdersService {
     private readonly messagingService: MessagingService,
   ) {}
 
-  async create(createOrderDto: CreateOrderDto): Promise<Order> {
-    const { customerId, customerEmail, customerName, items } = createOrderDto;
+  async create(createOrderDto: CreateOrderDto, user: any): Promise<Order> {
+    const { items } = createOrderDto;
+
+    // Get customer info from JWT token
+    const customerId = user.id;
+    const customerEmail = user.email;
+    const customerName = user.name;
 
     // Validate all products exist and calculate totals
     const orderItems: Partial<OrderItem>[] = [];
