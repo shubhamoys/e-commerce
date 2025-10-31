@@ -9,6 +9,7 @@ import { Order } from './entities/order.entity';
 import { OrderItem } from './entities/order-item.entity';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { ProductsService } from '../products/products.service';
+import { MessagingService } from '../messaging/messaging.service';
 import { OrderStatus } from '../common/enums';
 
 @Injectable()
@@ -19,6 +20,7 @@ export class OrdersService {
     @InjectRepository(OrderItem)
     private readonly orderItemRepository: Repository<OrderItem>,
     private readonly productsService: ProductsService,
+    private readonly messagingService: MessagingService,
   ) {}
 
   async create(createOrderDto: CreateOrderDto): Promise<Order> {
@@ -53,7 +55,24 @@ export class OrdersService {
       items: orderItems as OrderItem[],
     });
 
-    return this.orderRepository.save(order);
+    const savedOrder = await this.orderRepository.save(order);
+
+    // Publish order.created event to RabbitMQ
+    await this.messagingService.publishOrderCreated({
+      orderId: savedOrder.id,
+      customerId: savedOrder.customerId,
+      customerEmail: savedOrder.customerEmail,
+      totalAmount: Number(savedOrder.totalAmount),
+      items: savedOrder.items.map((item) => ({
+        productId: item.productId,
+        productName: item.productName,
+        quantity: item.quantity,
+        price: Number(item.price),
+      })),
+      orderDate: savedOrder.createdAt,
+    });
+
+    return savedOrder;
   }
 
   async findOne(id: string): Promise<Order> {

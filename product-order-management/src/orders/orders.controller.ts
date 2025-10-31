@@ -6,17 +6,21 @@ import {
   Param,
   HttpCode,
   HttpStatus,
+  UseGuards,
 } from '@nestjs/common';
 import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './dto/create-order.dto';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { GetUser } from '../auth/decorators/get-user.decorator';
 
 @Controller('orders')
+@UseGuards(JwtAuthGuard)
 export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  async create(@Body() createOrderDto: CreateOrderDto) {
+  async create(@Body() createOrderDto: CreateOrderDto, @GetUser() user: any) {
     const order = await this.ordersService.create(createOrderDto);
     return {
       success: true,
@@ -27,7 +31,7 @@ export class OrdersController {
 
   @Get(':id')
   @HttpCode(HttpStatus.OK)
-  async findOne(@Param('id') id: string) {
+  async findOne(@Param('id') id: string, @GetUser() user: any) {
     const order = await this.ordersService.findOne(id);
     return {
       success: true,
@@ -38,7 +42,10 @@ export class OrdersController {
 
   @Get('customer/:customerId')
   @HttpCode(HttpStatus.OK)
-  async findByCustomerId(@Param('customerId') customerId: string) {
+  async findByCustomerId(
+    @Param('customerId') customerId: string,
+    @GetUser() user: any,
+  ) {
     const orders = await this.ordersService.findByCustomerId(customerId);
     return {
       success: true,

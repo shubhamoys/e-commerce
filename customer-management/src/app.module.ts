@@ -9,6 +9,7 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { CustomersModule } from './customers/customers.module';
 import { CartModule } from './cart/cart.module';
+import { MessagingModule } from './messaging/messaging.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { CartModule } from './cart/cart.module';
     AuthModule,
     CustomersModule,
     CartModule,
+    MessagingModule,
   ],
   controllers: [AppController],
   providers: [AppService],
