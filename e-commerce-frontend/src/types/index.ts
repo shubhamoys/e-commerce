@@ -39,10 +39,14 @@ export interface Cart {
   id: string;
   customerId: string;
   items: CartItem[];
-  totalItems: number;
-  totalAmount: number;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface CartResponse {
+  cart: Cart;
+  totalAmount: number;
+  itemCount: number;
 }
 
 // Order Types

@@ -1,18 +1,24 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { productService } from "@/services/product.service";
+import { cartService } from "@/services/cart.service";
+import { useAuthStore } from "@/store/auth.store";
 import { Product } from "@/types";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatCurrency } from "@/lib/utils";
 
 export default function ProductsPage() {
+  const router = useRouter();
+  const { isAuthenticated } = useAuthStore();
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [addingToCart, setAddingToCart] = useState<string | null>(null);
 
   useEffect(() => {
     fetchProducts();
@@ -43,6 +49,36 @@ export default function ProductsPage() {
       );
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handleAddToCart = async (productId: string) => {
+    if (!isAuthenticated) {
+      router.push("/login");
+      return;
+    }
+
+    setAddingToCart(productId);
+
+    try {
+      const response = await cartService.addToCart({
+        productId,
+        quantity: 1,
+      });
+
+      if (response.success) {
+        // Refresh the page to update cart count in header
+        window.dispatchEvent(new Event("cartUpdated"));
+      }
+    } catch (err: any) {
+      console.error("Add to cart error:", err);
+      alert(
+        err.response?.data?.message ||
+          err.message ||
+          "Failed to add item to cart. Please try again."
+      );
+    } finally {
+      setAddingToCart(null);
     }
   };
 
@@ -123,7 +159,13 @@ export default function ProductsPage() {
                     </p>
                   </CardContent>
                   <CardFooter>
-                    <Button className="w-full">Add to Cart</Button>
+                    <Button
+                      className="w-full"
+                      onClick={() => handleAddToCart(product.id)}
+                      disabled={addingToCart === product.id}
+                    >
+                      {addingToCart === product.id ? "Adding..." : "Add to Cart"}
+                    </Button>
                   </CardFooter>
                 </Card>
               ))}

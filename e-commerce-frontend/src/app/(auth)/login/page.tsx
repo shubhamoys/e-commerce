@@ -122,7 +122,10 @@ export default function LoginPage() {
               )}
 
               <div className="space-y-2">
-                <label htmlFor="email" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                <label
+                  htmlFor="email"
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
                   Email Address
                 </label>
                 <Input
@@ -137,12 +140,17 @@ export default function LoginPage() {
                   className={formErrors.email ? "border-destructive" : ""}
                 />
                 {formErrors.email && (
-                  <p className="text-sm font-medium text-destructive">{formErrors.email}</p>
+                  <p className="text-sm font-medium text-destructive">
+                    {formErrors.email}
+                  </p>
                 )}
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="password" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                <label
+                  htmlFor="password"
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
                   Password
                 </label>
                 <Input
@@ -157,15 +165,13 @@ export default function LoginPage() {
                   className={formErrors.password ? "border-destructive" : ""}
                 />
                 {formErrors.password && (
-                  <p className="text-sm font-medium text-destructive">{formErrors.password}</p>
+                  <p className="text-sm font-medium text-destructive">
+                    {formErrors.password}
+                  </p>
                 )}
               </div>
 
-              <Button
-                type="submit"
-                className="w-full"
-                disabled={isLoading}
-              >
+              <Button type="submit" className="w-full" disabled={isLoading}>
                 {isLoading ? "Signing in..." : "Sign In"}
               </Button>
             </form>
@@ -189,7 +195,7 @@ export default function LoginPage() {
             href="/products"
             className="text-sm text-muted-foreground hover:text-primary transition-colors"
           >
-            Continue as guest
+            Continue without login
           </Link>
         </div>
       </div>

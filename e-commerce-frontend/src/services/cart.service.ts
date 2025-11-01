@@ -1,5 +1,5 @@
 import { customerServiceApi } from '@/lib/axios';
-import { ApiResponse, Cart } from '@/types';
+import { ApiResponse, CartResponse } from '@/types';
 
 interface AddToCartData {
   productId: string;
@@ -11,22 +11,22 @@ interface UpdateCartItemData {
 }
 
 export const cartService = {
-  async getCart(): Promise<ApiResponse<{ cart: Cart }>> {
+  async getCart(): Promise<ApiResponse<CartResponse>> {
     const response = await customerServiceApi.get('/cart');
     return response.data;
   },
 
-  async addToCart(data: AddToCartData): Promise<ApiResponse<{ cart: Cart }>> {
+  async addToCart(data: AddToCartData): Promise<ApiResponse<CartResponse>> {
     const response = await customerServiceApi.post('/cart/items', data);
     return response.data;
   },
 
-  async updateCartItem(itemId: string, data: UpdateCartItemData): Promise<ApiResponse<{ cart: Cart }>> {
+  async updateCartItem(itemId: string, data: UpdateCartItemData): Promise<ApiResponse<CartResponse>> {
     const response = await customerServiceApi.put(`/cart/items/${itemId}`, data);
     return response.data;
   },
 
-  async removeCartItem(itemId: string): Promise<ApiResponse<{ cart: Cart }>> {
+  async removeCartItem(itemId: string): Promise<ApiResponse<CartResponse>> {
     const response = await customerServiceApi.delete(`/cart/items/${itemId}`);
     return response.data;
   },
