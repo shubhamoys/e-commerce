@@ -61,9 +61,27 @@ export function Header() {
             </Link>
           </div>
 
-          <nav className="flex items-center gap-4">
+          <nav className="flex items-center gap-2 sm:gap-4">
             {isAuthenticated ? (
               <>
+                <Link href="/orders">
+                  <Button variant="ghost" size="sm">
+                    <span className="hidden sm:inline">Orders</span>
+                    <svg
+                      className="w-5 h-5 sm:hidden"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+                      />
+                    </svg>
+                  </Button>
+                </Link>
                 <Link href="/cart">
                   <Button variant="ghost" size="sm" className="relative">
                     <svg
@@ -86,7 +104,7 @@ export function Header() {
                     )}
                   </Button>
                 </Link>
-                <span className="text-sm text-muted-foreground hidden sm:block">
+                <span className="text-sm text-muted-foreground hidden md:block">
                   Welcome, {customer?.name}
                 </span>
                 <Button variant="outline" size="sm" onClick={handleLogout}>

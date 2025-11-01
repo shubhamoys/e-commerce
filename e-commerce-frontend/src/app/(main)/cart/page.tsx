@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { cartService } from "@/services/cart.service";
+import { orderService } from "@/services/order.service";
 import { useAuthStore } from "@/store/auth.store";
 import { Cart, CartItem } from "@/types";
 import { Button } from "@/components/ui/button";
@@ -19,6 +20,7 @@ export default function CartPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
   const [updatingItemId, setUpdatingItemId] = useState<string | null>(null);
+  const [isCheckingOut, setIsCheckingOut] = useState(false);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -99,6 +101,38 @@ export default function CartPage() {
       );
     } finally {
       setUpdatingItemId(null);
+    }
+  };
+
+  const handleCheckout = async () => {
+    if (!cart || cart.items.length === 0) return;
+
+    setIsCheckingOut(true);
+    setError("");
+
+    try {
+      const orderItems = cart.items.map((item) => ({
+        productId: item.productId,
+        quantity: item.quantity,
+      }));
+
+      const response = await orderService.createOrder({ items: orderItems });
+
+      if (response.success && response.data?.order) {
+        // Clear cart after successful order
+        window.dispatchEvent(new Event("cartUpdated"));
+        // Redirect to orders page
+        router.push("/orders");
+      }
+    } catch (err: any) {
+      console.error("Checkout error:", err);
+      setError(
+        err.response?.data?.message ||
+          err.message ||
+          "Failed to create order. Please try again."
+      );
+    } finally {
+      setIsCheckingOut(false);
     }
   };
 
@@ -247,8 +281,13 @@ export default function CartPage() {
                     </span>
                   </div>
                 </div>
-                <Button className="w-full" size="lg">
-                  Proceed to Checkout
+                <Button
+                  className="w-full"
+                  size="lg"
+                  onClick={handleCheckout}
+                  disabled={isCheckingOut}
+                >
+                  {isCheckingOut ? "Processing..." : "Proceed to Checkout"}
                 </Button>
                 <Button
                   variant="outline"
