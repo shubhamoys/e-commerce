@@ -10,7 +10,7 @@ import { BaseEntity } from '../../common/entities/base.entity';
 import { Customer } from '../../customers/entities/customer.entity';
 import { CartItem } from './cart-item.entity';
 
-@Entity('cart')
+@Entity('carts')
 export class Cart extends BaseEntity {
   @Column({ type: 'uuid', unique: true, name: 'customer_id' })
   @Index()

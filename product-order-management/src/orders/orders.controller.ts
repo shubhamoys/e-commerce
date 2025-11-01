@@ -7,6 +7,7 @@ import {
   HttpCode,
   HttpStatus,
   UseGuards,
+  ForbiddenException,
 } from '@nestjs/common';
 import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './dto/create-order.dto';
@@ -33,6 +34,12 @@ export class OrdersController {
   @HttpCode(HttpStatus.OK)
   async findOne(@Param('id') id: string, @GetUser() user: any) {
     const order = await this.ordersService.findOne(id);
+
+    // Verify the order belongs to the authenticated user
+    if (order.customerId !== user.id) {
+      throw new ForbiddenException('You are not authorized to view this order');
+    }
+
     return {
       success: true,
       message: 'Order retrieved successfully',
