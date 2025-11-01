@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { authService } from "@/services/auth.service";
@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 
 export default function LoginPage() {
   const router = useRouter();
-  const { setAuth } = useAuthStore();
+  const { isAuthenticated, setAuth } = useAuthStore();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [formData, setFormData] = useState({
@@ -22,6 +22,13 @@ export default function LoginPage() {
     email: "",
     password: "",
   });
+
+  // Redirect if already authenticated
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.replace("/products");
+    }
+  }, [isAuthenticated, router]);
 
   const validateForm = () => {
     const errors = {
@@ -63,12 +70,20 @@ export default function LoginPage() {
         password: formData.password,
       });
 
-      if (response.success) {
+      if (response.success && response.data) {
         setAuth(response.data.customer, response.data.token);
         router.push("/products");
+      } else {
+        setError("Login failed. Please try again.");
       }
     } catch (err: any) {
-      setError(err.response?.data?.message || "Invalid email or password");
+      console.error("Login error:", err);
+      const errorMessage =
+        err.response?.data?.message ||
+        err.response?.data?.error ||
+        err.message ||
+        "Invalid email or password. Please try again.";
+      setError(errorMessage);
     } finally {
       setIsLoading(false);
     }
@@ -106,37 +121,52 @@ export default function LoginPage() {
                 </div>
               )}
 
-              <Input
-                label="Email Address"
-                name="email"
-                type="email"
-                placeholder="john@example.com"
-                value={formData.email}
-                onChange={handleChange}
-                error={formErrors.email}
-                required
-                autoComplete="email"
-              />
+              <div className="space-y-2">
+                <label htmlFor="email" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                  Email Address
+                </label>
+                <Input
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="john@example.com"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  autoComplete="email"
+                  className={formErrors.email ? "border-destructive" : ""}
+                />
+                {formErrors.email && (
+                  <p className="text-sm font-medium text-destructive">{formErrors.email}</p>
+                )}
+              </div>
 
-              <Input
-                label="Password"
-                name="password"
-                type="password"
-                placeholder="••••••••"
-                value={formData.password}
-                onChange={handleChange}
-                error={formErrors.password}
-                required
-                autoComplete="current-password"
-              />
+              <div className="space-y-2">
+                <label htmlFor="password" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                  Password
+                </label>
+                <Input
+                  id="password"
+                  name="password"
+                  type="password"
+                  placeholder="••••••••"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                  autoComplete="current-password"
+                  className={formErrors.password ? "border-destructive" : ""}
+                />
+                {formErrors.password && (
+                  <p className="text-sm font-medium text-destructive">{formErrors.password}</p>
+                )}
+              </div>
 
               <Button
                 type="submit"
                 className="w-full"
-                isLoading={isLoading}
                 disabled={isLoading}
               >
-                Sign In
+                {isLoading ? "Signing in..." : "Sign In"}
               </Button>
             </form>
 
