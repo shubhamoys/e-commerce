@@ -1,0 +1,275 @@
+{
+	"info": {
+		"_postman_id": "da269338-d628-4773-abe2-3e0c6b36cbb5",
+		"name": "Products and Orders Management",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34523171",
+		"_collection_link": "https://bold-resonance-42584.postman.co/workspace/E-Commerce~4037482b-cb95-4179-af25-f81bc70b7eda/collection/34523171-da269338-d628-4773-abe2-3e0c6b36cbb5?action=share&source=collection_link&creator=34523171"
+	},
+	"item": [
+		{
+			"name": "Products Module",
+			"item": [
+				{
+					"name": "Get Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{product_base_url}}/products",
+							"host": [
+								"{{product_base_url}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Products",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{product_base_url}}/products",
+									"host": [
+										"{{product_base_url}}"
+									],
+									"path": [
+										"products"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [
+								{
+									"expires": "Invalid Date",
+									"domain": "",
+									"path": ""
+								}
+							],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Products retrieved successfully\",\n    \"data\": {\n        \"products\": [\n            {\n                \"id\": \"1868dd7d-cee9-4516-8cf8-71f2f1ea5d8a\",\n                \"createdAt\": \"2025-11-01T17:47:05.402Z\",\n                \"updatedAt\": \"2025-11-01T17:47:05.402Z\",\n                \"name\": \"Wireless Bluetooth Headphones\",\n                \"description\": \"High-quality wireless headphones with noise cancellation and 30-hour battery life. Perfect for music lovers and professionals.\",\n                \"price\": \"79.99\",\n                \"imageUrl\": \"https://plus.unsplash.com/premium_photo-1679865289918-b21aae5a9559?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687\"\n            },\n            {\n                \"id\": \"589e2054-4926-4ea2-80c4-976dd7b96e6f\",\n                \"createdAt\": \"2025-11-01T17:47:05.402Z\",\n                \"updatedAt\": \"2025-11-01T17:47:05.402Z\",\n                \"name\": \"Smart Watch Pro\",\n                \"description\": \"Feature-rich smartwatch with fitness tracking, heart rate monitor, GPS, and 7-day battery life.\",\n                \"price\": \"249.99\",\n                \"imageUrl\": \"https://images.unsplash.com/photo-1637160151663-a410315e4e75?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687\"\n            },\n            {\n                \"id\": \"caa786ee-3b80-4879-9a09-c4c8c9fbb6c6\",\n                \"createdAt\": \"2025-11-01T17:47:05.402Z\",\n                \"updatedAt\": \"2025-11-01T17:47:05.402Z\",\n                \"name\": \"MacBook Pro 16-inch\",\n                \"description\": \"Powerful laptop with M1 Pro chip, 16GB RAM, and 512GB SSD. Ideal for professionals and creatives.\",\n                \"price\": \"34.99\",\n                \"imageUrl\": \"https://images.unsplash.com/photo-1541807084-5c52b6b3adef?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1974\"\n            },\n            {\n                \"id\": \"67a27cd7-677f-436e-a6a4-8d6135b16b23\",\n                \"createdAt\": \"2025-11-01T17:47:05.402Z\",\n                \"updatedAt\": \"2025-11-01T17:47:05.402Z\",\n                \"name\": \"Mechanical Gaming Keyboard\",\n                \"description\": \"RGB backlit mechanical keyboard with Cherry MX switches and programmable keys. Perfect for gaming and typing.\",\n                \"price\": \"129.99\",\n                \"imageUrl\": \"https://images.unsplash.com/photo-1660496379804-b408bfacc9cc?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1051\"\n            },\n            {\n                \"id\": \"2bda62c0-b957-4ff5-979b-59187d854f41\",\n                \"createdAt\": \"2025-11-01T17:47:05.402Z\",\n                \"updatedAt\": \"2025-11-01T17:47:05.402Z\",\n                \"name\": \"Wireless Mouse\",\n                \"description\": \"Ergonomic wireless mouse with precision tracking and long battery life. Comfortable for all-day use.\",\n                \"price\": \"29.99\",\n                \"imageUrl\": \"https://images.unsplash.com/photo-1739742473235-34a7bd9b8f87?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687\"\n            },\n            {\n                \"id\": \"8a8dfd9b-b3a4-46fe-a5f2-6211dca80435\",\n                \"createdAt\": \"2025-11-01T17:47:05.402Z\",\n                \"updatedAt\": \"2025-11-01T17:47:05.402Z\",\n                \"name\": \"4K Webcam\",\n                \"description\": \"Ultra HD webcam with auto-focus and built-in microphone for video calls. Crystal clear image quality.\",\n                \"price\": \"89.99\",\n                \"imageUrl\": \"https://images.unsplash.com/photo-1622750342107-4b60e2704157?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170\"\n            },\n            {\n                \"id\": \"88ff2502-5d2d-4be7-8575-7dc7ecaee794\",\n                \"createdAt\": \"2025-11-01T17:47:05.402Z\",\n                \"updatedAt\": \"2025-11-01T17:47:05.402Z\",\n                \"name\": \"Portable SSD 1TB\",\n                \"description\": \"Compact external SSD with 1TB storage and USB 3.2 Gen 2 speeds. Fast and reliable data storage.\",\n                \"price\": \"119.99\",\n                \"imageUrl\": \"https://images.unsplash.com/photo-1720048170512-d5d4fb0fff88?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687\"\n            },\n            {\n                \"id\": \"425a1b37-0bc9-4509-b96c-a0c0577fd08b\",\n                \"createdAt\": \"2025-11-01T17:47:05.402Z\",\n                \"updatedAt\": \"2025-11-01T17:47:05.402Z\",\n                \"name\": \"Laptop Stand Aluminum\",\n                \"description\": \"Adjustable aluminum laptop stand for better ergonomics and cooling. Fits all laptop sizes.\",\n                \"price\": \"39.99\",\n                \"imageUrl\": \"https://images.unsplash.com/photo-1623251609314-97cc1f84e3ed?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687\"\n            },\n            {\n                \"id\": \"a055c218-9757-424b-9ada-682a9cca3d30\",\n                \"createdAt\": \"2025-11-01T17:47:05.402Z\",\n                \"updatedAt\": \"2025-11-01T17:47:05.402Z\",\n                \"name\": \"Iphone 14 Pro Max\",\n                \"description\": \"The latest iPhone with A16 Bionic chip, 5G capability, and stunning Super Retina XDR display.\",\n                \"price\": \"1099.99\",\n                \"imageUrl\": \"https://images.unsplash.com/photo-1697898706719-bce6e007c817?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687\"\n            },\n            {\n                \"id\": \"010b63df-ecca-47b0-a773-9ed56e0ded67\",\n                \"createdAt\": \"2025-11-01T17:47:05.402Z\",\n                \"updatedAt\": \"2025-11-01T17:47:05.402Z\",\n                \"name\": \"LED Desk Lamp\",\n                \"description\": \"Adjustable LED desk lamp with touch control and multiple brightness levels. Eye-friendly lighting.\",\n                \"price\": \"44.99\",\n                \"imageUrl\": \"https://images.unsplash.com/photo-1708513427809-728a7913fc9f?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=663\"\n            }\n        ],\n        \"pagination\": {\n            \"total\": 10,\n            \"page\": 1,\n            \"limit\": 10,\n            \"totalPages\": 1\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{product_base_url}}/products/1868dd7d-cee9-4516-8cf8-71f2f1ea5d8a",
+							"host": [
+								"{{product_base_url}}"
+							],
+							"path": [
+								"products",
+								"1868dd7d-cee9-4516-8cf8-71f2f1ea5d8a"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Product",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{product_base_url}}/products/productId",
+									"host": [
+										"{{product_base_url}}"
+									],
+									"path": [
+										"products",
+										"productId"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [
+								{
+									"expires": "Invalid Date",
+									"domain": "",
+									"path": ""
+								}
+							],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Product retrieved successfully\",\n    \"data\": {\n        \"product\": {\n            \"id\": \"1868dd7d-cee9-4516-8cf8-71f2f1ea5d8a\",\n            \"createdAt\": \"2025-11-01T17:47:05.402Z\",\n            \"updatedAt\": \"2025-11-01T17:47:05.402Z\",\n            \"name\": \"Wireless Bluetooth Headphones\",\n            \"description\": \"High-quality wireless headphones with noise cancellation and 30-hour battery life. Perfect for music lovers and professionals.\",\n            \"price\": \"79.99\",\n            \"imageUrl\": \"https://plus.unsplash.com/premium_photo-1679865289918-b21aae5a9559?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687\"\n        }\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Orders Module",
+			"item": [
+				{
+					"name": "Get Order",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{product_base_url}}/orders/187dbee7-f029-4b65-8e58-9c06630a87ba",
+							"host": [
+								"{{product_base_url}}"
+							],
+							"path": [
+								"orders",
+								"187dbee7-f029-4b65-8e58-9c06630a87ba"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Order",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{product_base_url}}/orders/187dbee7-f029-4b65-8e58-9c06630a87ba",
+									"host": [
+										"{{product_base_url}}"
+									],
+									"path": [
+										"orders",
+										"187dbee7-f029-4b65-8e58-9c06630a87ba"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [
+								{
+									"expires": "Invalid Date",
+									"domain": "",
+									"path": ""
+								}
+							],
+							"body": "{\r\n    \"success\": true,\r\n    \"message\": \"Order retrieved successfully\",\r\n    \"data\": {\r\n        \"order\": {\r\n            \"id\": \"187dbee7-f029-4b65-8e58-9c06630a87ba\",\r\n            \"createdAt\": \"2025-11-02T06:36:10.149Z\",\r\n            \"updatedAt\": \"2025-11-02T06:36:10.149Z\",\r\n            \"customerId\": \"5bfb5f05-fbbe-4d0f-82dd-662d8e839e07\",\r\n            \"customerEmail\": \"test.user@email.com\",\r\n            \"customerName\": \"Test User\",\r\n            \"totalAmount\": \"159.98\",\r\n            \"status\": \"pending\",\r\n            \"items\": [\r\n                {\r\n                    \"id\": \"58659af2-610d-4227-8e99-c6352332b50c\",\r\n                    \"createdAt\": \"2025-11-02T06:36:10.149Z\",\r\n                    \"updatedAt\": \"2025-11-02T06:36:10.149Z\",\r\n                    \"orderId\": \"187dbee7-f029-4b65-8e58-9c06630a87ba\",\r\n                    \"productId\": \"1868dd7d-cee9-4516-8cf8-71f2f1ea5d8a\",\r\n                    \"productName\": \"Wireless Bluetooth Headphones\",\r\n                    \"quantity\": 2,\r\n                    \"price\": \"79.99\",\r\n                    \"subtotal\": \"159.98\"\r\n                }\r\n            ]\r\n        }\r\n    }\r\n}"
+						}
+					]
+				},
+				{
+					"name": "Create Order",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"items\":[\r\n        {\r\n            \"productId\":\"1868dd7d-cee9-4516-8cf8-71f2f1ea5d8a\",\r\n            \"quantity\":2\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{product_base_url}}/orders",
+							"host": [
+								"{{product_base_url}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create Order",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"items\":[\r\n        {\r\n            \"productId\":\"1868dd7d-cee9-4516-8cf8-71f2f1ea5d8a\",\r\n            \"quantity\":2\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{product_base_url}}/orders",
+									"host": [
+										"{{product_base_url}}"
+									],
+									"path": [
+										"orders"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [
+								{
+									"expires": "Invalid Date",
+									"domain": "",
+									"path": ""
+								}
+							],
+							"body": "{\r\n    \"success\": true,\r\n    \"message\": \"Order created successfully\",\r\n    \"data\": {\r\n        \"order\": {\r\n            \"id\": \"187dbee7-f029-4b65-8e58-9c06630a87ba\",\r\n            \"createdAt\": \"2025-11-02T06:36:10.149Z\",\r\n            \"updatedAt\": \"2025-11-02T06:36:10.149Z\",\r\n            \"customerId\": \"5bfb5f05-fbbe-4d0f-82dd-662d8e839e07\",\r\n            \"customerEmail\": \"test.user@email.com\",\r\n            \"customerName\": \"Test User\",\r\n            \"totalAmount\": 159.98,\r\n            \"status\": \"pending\",\r\n            \"items\": [\r\n                {\r\n                    \"id\": \"58659af2-610d-4227-8e99-c6352332b50c\",\r\n                    \"createdAt\": \"2025-11-02T06:36:10.149Z\",\r\n                    \"updatedAt\": \"2025-11-02T06:36:10.149Z\",\r\n                    \"orderId\": \"187dbee7-f029-4b65-8e58-9c06630a87ba\",\r\n                    \"productId\": \"1868dd7d-cee9-4516-8cf8-71f2f1ea5d8a\",\r\n                    \"productName\": \"Wireless Bluetooth Headphones\",\r\n                    \"quantity\": 2,\r\n                    \"price\": 79.99,\r\n                    \"subtotal\": 159.98\r\n                }\r\n            ]\r\n        }\r\n    }\r\n}"
+						}
+					]
+				}
+			]
+		}
+	]
+}

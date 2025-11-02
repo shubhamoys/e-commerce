@@ -1,0 +1,687 @@
+{
+	"info": {
+		"_postman_id": "1fd05374-a780-493c-b99b-f4877d4bdedd",
+		"name": "Customers Management",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34523171",
+		"_collection_link": "https://bold-resonance-42584.postman.co/workspace/E-Commerce~4037482b-cb95-4179-af25-f81bc70b7eda/collection/34523171-1fd05374-a780-493c-b99b-f4877d4bdedd?action=share&source=collection_link&creator=34523171"
+	},
+	"item": [
+		{
+			"name": "Customers Module",
+			"item": [
+				{
+					"name": "Get Customer Orders",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{customer_base_url}}/customers/orders",
+							"host": [
+								"{{customer_base_url}}"
+							],
+							"path": [
+								"customers",
+								"orders"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Customer Orders",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{customer_base_url}}/customers/orders",
+									"host": [
+										"{{customer_base_url}}"
+									],
+									"path": [
+										"customers",
+										"orders"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [
+								{
+									"expires": "Invalid Date",
+									"domain": "",
+									"path": ""
+								}
+							],
+							"body": "{\r\n    \"success\": true,\r\n    \"message\": \"Order history retrieved successfully\",\r\n    \"data\": {\r\n        \"orders\": [\r\n            {\r\n                \"id\": \"04a8bb5f-8d58-490f-8569-1fe822c07593\",\r\n                \"createdAt\": \"2025-11-02T06:36:10.228Z\",\r\n                \"updatedAt\": \"2025-11-02T06:36:10.228Z\",\r\n                \"customerId\": \"5bfb5f05-fbbe-4d0f-82dd-662d8e839e07\",\r\n                \"orderId\": \"187dbee7-f029-4b65-8e58-9c06630a87ba\",\r\n                \"totalAmount\": \"159.98\",\r\n                \"orderDate\": \"2025-11-02T06:36:10.149Z\"\r\n            }\r\n        ]\r\n    }\r\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Auth Module",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let res = pm.response.json();\r",
+									"let token = res.data.token\r",
+									"pm.environment.set(\"token\",token)"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"test.user@email.com\",\r\n    \"password\":\"test@123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{customer_base_url}}/auth/login",
+							"host": [
+								"{{customer_base_url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\":\"test.user@email.com\",\r\n    \"password\":\"test@123\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{customer_base_url}}/auth/login",
+									"host": [
+										"{{customer_base_url}}"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\r\n    \"success\": true,\r\n    \"message\": \"Login successful\",\r\n    \"data\": {\r\n        \"customer\": {\r\n            \"id\": \"5bfb5f05-fbbe-4d0f-82dd-662d8e839e07\",\r\n            \"createdAt\": \"2025-11-02T05:52:26.047Z\",\r\n            \"updatedAt\": \"2025-11-02T05:52:26.047Z\",\r\n            \"email\": \"test.user@email.com\",\r\n            \"name\": \"Test User\",\r\n            \"phone\": \"4561237890\",\r\n            \"address\": \"Test City, Test State, Test Country\"\r\n        },\r\n        \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1YmZiNWYwNS1mYmJlLTRkMGYtODJkZC02NjJkOGU4MzllMDciLCJlbWFpbCI6InRlc3QudXNlckBlbWFpbC5jb20iLCJuYW1lIjoiVGVzdCBVc2VyIiwiaWF0IjoxNzYyMDYyODE0LCJleHAiOjE3NjI2Njc2MTR9.scSoVl3LbKhDQStI8OD1mmF6lRPgjRE2EWxLNiUL4Ec\"\r\n    }\r\n}"
+						}
+					]
+				},
+				{
+					"name": "Registration",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let res = pm.response.json();\r",
+									"let token = res.data.token\r",
+									"pm.environment.set(\"token\",token)"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"test.user@email.com\",\r\n    \"password\":\"test@123\",\r\n    \"name\":\"Test User\",\r\n    \"phone\":\"4561237890\",\r\n    \"address\":\"Test City, Test State, Test Country\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{customer_base_url}}/auth/register",
+							"host": [
+								"{{customer_base_url}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Registration",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\":\"test.user@email.com\",\r\n    \"password\":\"test@123\",\r\n    \"name\":\"Test User\",\r\n    \"phone\":\"4561237890\",\r\n    \"address\":\"Test City, Test State, Test Country\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{customer_base_url}}/auth/register",
+									"host": [
+										"{{customer_base_url}}"
+									],
+									"path": [
+										"auth",
+										"register"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [
+								{
+									"expires": "Invalid Date",
+									"domain": "",
+									"path": ""
+								}
+							],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Customer registered successfully\",\n    \"data\": {\n        \"customer\": {\n            \"id\": \"5bfb5f05-fbbe-4d0f-82dd-662d8e839e07\",\n            \"createdAt\": \"2025-11-02T05:52:26.047Z\",\n            \"updatedAt\": \"2025-11-02T05:52:26.047Z\",\n            \"email\": \"test.user@email.com\",\n            \"name\": \"Test User\",\n            \"phone\": \"4561237890\",\n            \"address\": \"Test City, Test State, Test Country\"\n        },\n        \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1YmZiNWYwNS1mYmJlLTRkMGYtODJkZC02NjJkOGU4MzllMDciLCJlbWFpbCI6InRlc3QudXNlckBlbWFpbC5jb20iLCJuYW1lIjoiVGVzdCBVc2VyIiwiaWF0IjoxNzYyMDYyNzQ2LCJleHAiOjE3NjI2Njc1NDZ9.pjKK-dS9sUQq_r4cRzm4enxigzKSV_fTdo8cvePewbw\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Current User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{customer_base_url}}/auth/me",
+							"host": [
+								"{{customer_base_url}}"
+							],
+							"path": [
+								"auth",
+								"me"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Current User",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{customer_base_url}}/auth/me",
+									"host": [
+										"{{customer_base_url}}"
+									],
+									"path": [
+										"auth",
+										"me"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [
+								{
+									"expires": "Invalid Date",
+									"domain": "",
+									"path": ""
+								}
+							],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Customer retrieved successfully\",\n    \"data\": {\n        \"customer\": {\n            \"id\": \"5bfb5f05-fbbe-4d0f-82dd-662d8e839e07\",\n            \"createdAt\": \"2025-11-02T05:52:26.047Z\",\n            \"updatedAt\": \"2025-11-02T05:52:26.047Z\",\n            \"email\": \"test.user@email.com\",\n            \"name\": \"Test User\",\n            \"phone\": \"4561237890\",\n            \"address\": \"Test City, Test State, Test Country\"\n        }\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Cart Module",
+			"item": [
+				{
+					"name": "Get Cart",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{customer_base_url}}/cart",
+							"host": [
+								"{{customer_base_url}}"
+							],
+							"path": [
+								"cart"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Cart",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{customer_base_url}}/cart",
+									"host": [
+										"{{customer_base_url}}"
+									],
+									"path": [
+										"cart"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [
+								{
+									"expires": "Invalid Date",
+									"domain": "",
+									"path": ""
+								}
+							],
+							"body": "{\r\n    \"success\": true,\r\n    \"message\": \"Cart retrieved successfully\",\r\n    \"data\": {\r\n        \"cart\": {\r\n            \"id\": \"8158875c-efcf-4bcc-b13d-83b978e3909d\",\r\n            \"createdAt\": \"2025-11-02T05:59:15.750Z\",\r\n            \"updatedAt\": \"2025-11-02T05:59:15.750Z\",\r\n            \"customerId\": \"5bfb5f05-fbbe-4d0f-82dd-662d8e839e07\",\r\n            \"items\": [\r\n                {\r\n                    \"id\": \"4ad7a36f-98d7-444b-a7e4-da4fdd50f0b2\",\r\n                    \"createdAt\": \"2025-11-02T06:27:09.242Z\",\r\n                    \"updatedAt\": \"2025-11-02T06:27:09.242Z\",\r\n                    \"cartId\": \"8158875c-efcf-4bcc-b13d-83b978e3909d\",\r\n                    \"productId\": \"1868dd7d-cee9-4516-8cf8-71f2f1ea5d8a\",\r\n                    \"productName\": \"Wireless Bluetooth Headphones\",\r\n                    \"productPrice\": \"79.99\",\r\n                    \"quantity\": 1\r\n                }\r\n            ]\r\n        },\r\n        \"totalAmount\": 79.99,\r\n        \"itemCount\": 1\r\n    }\r\n}"
+						}
+					]
+				},
+				{
+					"name": "Add Cart Item",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\":\"1868dd7d-cee9-4516-8cf8-71f2f1ea5d8a\",\r\n    \"quantity\":1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{customer_base_url}}/cart/items",
+							"host": [
+								"{{customer_base_url}}"
+							],
+							"path": [
+								"cart",
+								"items"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Add Cart Item",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"productId\":\"1868dd7d-cee9-4516-8cf8-71f2f1ea5d8a\",\r\n    \"quantity\":1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{customer_base_url}}/cart/items",
+									"host": [
+										"{{customer_base_url}}"
+									],
+									"path": [
+										"cart",
+										"items"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [
+								{
+									"expires": "Invalid Date",
+									"domain": "",
+									"path": ""
+								}
+							],
+							"body": "{\r\n    \"success\": true,\r\n    \"message\": \"Item added to cart successfully\",\r\n    \"data\": {\r\n        \"cart\": {\r\n            \"id\": \"8158875c-efcf-4bcc-b13d-83b978e3909d\",\r\n            \"createdAt\": \"2025-11-02T05:59:15.750Z\",\r\n            \"updatedAt\": \"2025-11-02T05:59:15.750Z\",\r\n            \"customerId\": \"5bfb5f05-fbbe-4d0f-82dd-662d8e839e07\",\r\n            \"items\": [\r\n                {\r\n                    \"id\": \"63daa56f-d9e1-4b5a-b9d8-6e82a8d83b03\",\r\n                    \"createdAt\": \"2025-11-02T06:16:35.889Z\",\r\n                    \"updatedAt\": \"2025-11-02T06:16:35.889Z\",\r\n                    \"cartId\": \"8158875c-efcf-4bcc-b13d-83b978e3909d\",\r\n                    \"productId\": \"1868dd7d-cee9-4516-8cf8-71f2f1ea5d8a\",\r\n                    \"productName\": \"Wireless Bluetooth Headphones\",\r\n                    \"productPrice\": \"79.99\",\r\n                    \"quantity\": 1\r\n                }\r\n            ]\r\n        },\r\n        \"totalAmount\": 79.99,\r\n        \"itemCount\": 1\r\n    }\r\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Cart Item",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"quantity\":2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{customer_base_url}}/cart/items/63daa56f-d9e1-4b5a-b9d8-6e82a8d83b03",
+							"host": [
+								"{{customer_base_url}}"
+							],
+							"path": [
+								"cart",
+								"items",
+								"63daa56f-d9e1-4b5a-b9d8-6e82a8d83b03"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update Cart Item",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"quantity\":2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{customer_base_url}}/cart/items/itemId",
+									"host": [
+										"{{customer_base_url}}"
+									],
+									"path": [
+										"cart",
+										"items",
+										"itemId"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [
+								{
+									"expires": "Invalid Date",
+									"domain": "",
+									"path": ""
+								}
+							],
+							"body": "{\r\n    \"success\": true,\r\n    \"message\": \"Cart item updated successfully\",\r\n    \"data\": {\r\n        \"cart\": {\r\n            \"id\": \"8158875c-efcf-4bcc-b13d-83b978e3909d\",\r\n            \"createdAt\": \"2025-11-02T05:59:15.750Z\",\r\n            \"updatedAt\": \"2025-11-02T05:59:15.750Z\",\r\n            \"customerId\": \"5bfb5f05-fbbe-4d0f-82dd-662d8e839e07\",\r\n            \"items\": [\r\n                {\r\n                    \"id\": \"63daa56f-d9e1-4b5a-b9d8-6e82a8d83b03\",\r\n                    \"createdAt\": \"2025-11-02T06:16:35.889Z\",\r\n                    \"updatedAt\": \"2025-11-02T06:19:29.800Z\",\r\n                    \"cartId\": \"8158875c-efcf-4bcc-b13d-83b978e3909d\",\r\n                    \"productId\": \"1868dd7d-cee9-4516-8cf8-71f2f1ea5d8a\",\r\n                    \"productName\": \"Wireless Bluetooth Headphones\",\r\n                    \"productPrice\": \"79.99\",\r\n                    \"quantity\": 2\r\n                }\r\n            ]\r\n        },\r\n        \"totalAmount\": 159.98,\r\n        \"itemCount\": 2\r\n    }\r\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Cart Item",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{customer_base_url}}/cart/items/63daa56f-d9e1-4b5a-b9d8-6e82a8d83b03",
+							"host": [
+								"{{customer_base_url}}"
+							],
+							"path": [
+								"cart",
+								"items",
+								"63daa56f-d9e1-4b5a-b9d8-6e82a8d83b03"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Delete Cart Item",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{customer_base_url}}/cart/items/itemId",
+									"host": [
+										"{{customer_base_url}}"
+									],
+									"path": [
+										"cart",
+										"items",
+										"itemId"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [
+								{
+									"expires": "Invalid Date",
+									"domain": "",
+									"path": ""
+								}
+							],
+							"body": "{\r\n    \"success\": true,\r\n    \"message\": \"Item removed from cart successfully\",\r\n    \"data\": {\r\n        \"cart\": {\r\n            \"id\": \"8158875c-efcf-4bcc-b13d-83b978e3909d\",\r\n            \"createdAt\": \"2025-11-02T05:59:15.750Z\",\r\n            \"updatedAt\": \"2025-11-02T05:59:15.750Z\",\r\n            \"customerId\": \"5bfb5f05-fbbe-4d0f-82dd-662d8e839e07\",\r\n            \"items\": []\r\n        },\r\n        \"totalAmount\": 0,\r\n        \"itemCount\": 0\r\n    }\r\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Cart",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{customer_base_url}}/cart",
+							"host": [
+								"{{customer_base_url}}"
+							],
+							"path": [
+								"cart"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Delete Cart",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{customer_base_url}}/cart",
+									"host": [
+										"{{customer_base_url}}"
+									],
+									"path": [
+										"cart"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [
+								{
+									"expires": "Invalid Date",
+									"domain": "",
+									"path": ""
+								}
+							],
+							"body": "{\r\n    \"success\": true,\r\n    \"message\": \"Cart cleared successfully\",\r\n    \"data\": {\r\n        \"cart\": {\r\n            \"id\": \"8158875c-efcf-4bcc-b13d-83b978e3909d\",\r\n            \"createdAt\": \"2025-11-02T05:59:15.750Z\",\r\n            \"updatedAt\": \"2025-11-02T05:59:15.750Z\",\r\n            \"customerId\": \"5bfb5f05-fbbe-4d0f-82dd-662d8e839e07\",\r\n            \"items\": []\r\n        },\r\n        \"totalAmount\": 0,\r\n        \"itemCount\": 0\r\n    }\r\n}"
+						}
+					]
+				}
+			]
+		}
+	]
+}
